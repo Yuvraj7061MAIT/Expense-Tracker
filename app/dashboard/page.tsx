@@ -17,12 +17,12 @@ const Dashboard = async ({
   await connectDB();
 
   const now = new Date();
-  const rawMonth = typeof searchParams?.month === 'string' ? searchParams.month : undefined;
+  const rawMonth = typeof searchParams?.month === "string" ? searchParams.month : undefined;
   const [year, month] = rawMonth?.split("-").map(Number) || [now.getFullYear(), now.getMonth() + 1];
   const start = new Date(year!, month! - 1, 1);
   const end = new Date(year!, month!, 0, 23, 59, 59);
 
-  const selectedMonth = `${year.toString().padStart(4, "0")}-${month.toString().padStart(2, "0")}`
+  const selectedMonth = `${year.toString().padStart(4, "0")}-${month.toString().padStart(2, "0")}`;
 
   const expenses = await Expense.find({
     userId,
@@ -83,7 +83,8 @@ const Dashboard = async ({
 
     const data = await res.json();
     if (Array.isArray(data.tips)) suggestions = data.tips;
-    if (typeof data.predicted_next_budget === "number") predictedNextBudget = data.predicted_next_budget;
+    if (typeof data.predicted_next_budget === "number")
+      predictedNextBudget = data.predicted_next_budget;
   } catch (err) {
     console.error("❌ Error fetching tips:", err);
     suggestions = ["⚠️ Unable to retrieve smart tips at this time."];
@@ -108,7 +109,6 @@ const Dashboard = async ({
           <Link href="/reports" className="bg-purple-700 hover:bg-purple-600 px-4 py-2 rounded-full font-medium">
             📈 View Reports
           </Link>
-
         </div>
 
         {/* Month Selector */}
