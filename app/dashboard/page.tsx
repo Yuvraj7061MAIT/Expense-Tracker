@@ -1,5 +1,3 @@
-// app/dashboard/page.tsx
-
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { connectDB } from "@/app/lib/mongoose";
@@ -8,11 +6,7 @@ import { Budget } from "@/app/models/Budget";
 import ChartClient from "@/app/components/dashboard/ChartClient";
 import Link from "next/link";
 
-type DashboardProps = {
-  searchParams?: Record<string, string | string[]>;
-};
-
-const Dashboard = async ({ searchParams }: DashboardProps)  => {
+const Dashboard = async ({ searchParams }: any) => {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
@@ -96,7 +90,6 @@ const Dashboard = async ({ searchParams }: DashboardProps)  => {
   return (
     <div className="min-h-screen p-8 bg-[#0d1117] text-white">
       <div className="max-w-6xl mx-auto bg-[#161b22] p-10 rounded-3xl shadow-xl space-y-10 border border-gray-700">
-
         {/* Header */}
         <div className="flex flex-wrap gap-3">
           <Link href="/expenses/add" className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-full font-medium">
