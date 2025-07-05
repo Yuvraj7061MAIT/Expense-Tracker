@@ -6,18 +6,23 @@ import { Budget } from "@/app/models/Budget";
 import ChartClient from "@/app/components/dashboard/ChartClient";
 import Link from "next/link";
 
-const Dashboard = async ({ searchParams }: { searchParams: { month?: string } }) => {
+const Dashboard = async ({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
   await connectDB();
 
   const now = new Date();
-  const [year, month] = searchParams.month?.split("-").map(Number) || [now.getFullYear(), now.getMonth() + 1];
+  const rawMonth = typeof searchParams?.month === 'string' ? searchParams.month : undefined;
+  const [year, month] = rawMonth?.split("-").map(Number) || [now.getFullYear(), now.getMonth() + 1];
   const start = new Date(year!, month! - 1, 1);
   const end = new Date(year!, month!, 0, 23, 59, 59);
 
-  const selectedMonth = `${year.toString().padStart(4, "0")}-${month.toString().padStart(2, "0")}`;
+  const selectedMonth = `${year.toString().padStart(4, "0")}-${month.toString().padStart(2, "0")}`
 
   const expenses = await Expense.find({
     userId,
