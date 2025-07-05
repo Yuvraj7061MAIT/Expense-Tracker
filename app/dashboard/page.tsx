@@ -1,3 +1,5 @@
+// app/dashboard/page.tsx
+
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { connectDB } from "@/app/lib/mongoose";
@@ -6,11 +8,11 @@ import { Budget } from "@/app/models/Budget";
 import ChartClient from "@/app/components/dashboard/ChartClient";
 import Link from "next/link";
 
-interface DashboardPageProps {
+interface PageProps {
   searchParams?: Record<string, string | string[]>;
 }
 
-const Dashboard = async ({ searchParams }: DashboardPageProps) => {
+const Dashboard = async ({ searchParams }: PageProps) => {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
