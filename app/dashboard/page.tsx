@@ -6,11 +6,11 @@ import { Budget } from "@/app/models/Budget";
 import ChartClient from "@/app/components/dashboard/ChartClient";
 import Link from "next/link";
 
-const Dashboard = async ({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) => {
+interface DashboardPageProps {
+  searchParams?: Record<string, string | string[]>;
+}
+
+const Dashboard = async ({ searchParams }: DashboardPageProps) => {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
