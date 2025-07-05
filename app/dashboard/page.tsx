@@ -8,11 +8,11 @@ import { Budget } from "@/app/models/Budget";
 import ChartClient from "@/app/components/dashboard/ChartClient";
 import Link from "next/link";
 
-interface PageProps {
+type Props = {
   searchParams?: Record<string, string | string[]>;
-}
+};
 
-const Dashboard = async ({ searchParams }: PageProps) => {
+const Dashboard = async ({ searchParams }: Props)  => {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
